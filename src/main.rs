@@ -2,17 +2,17 @@ use std::fs;
 
 fn main() {
     // Day 1
-    // let file = fs::read_to_string("quiz1_input.txt").expect("Error, file not there");
-    // let fat_elf = get_the_elf(file);
+    let file = fs::read_to_string("quiz1_input.txt").expect("Error, file not there");
+    let fat_elf = get_the_elf(file);
 
-    // println!("Day 1 ----------------------------------------------------------");
-    // println!("The fatest elf is {}", fat_elf.0);
-    // println!("The sum is {}", fat_elf.0 + fat_elf.1 + fat_elf.2);
-    // println!("----------------------------------------------------------------");
+    println!("Day 1 ----------------------------------------------------------");
+    println!("The fatest elf is {}", fat_elf.0);
+    println!("The sum is {}", fat_elf.0 + fat_elf.1 + fat_elf.2);
 
     // Day 2
     let file = fs::read_to_string("quiz2_input.txt").expect("Error, file not read");
     let points = get_total_points(file.clone());
+    println!("Day 2 ----------------------------------------------------------");
 
     println!("The total point is {}", points);
 
