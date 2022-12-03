@@ -1,4 +1,9 @@
-use std::{fs::{self, File}, num, ops::Div, io::{BufRead, BufReader}};
+use std::{
+    fs::{self, File},
+    io::{BufRead, BufReader},
+    num,
+    ops::Div,
+};
 
 fn main() {
     // Day 1
@@ -35,7 +40,6 @@ fn main() {
     let total_sum2 = get_total_sum(second_match.clone());
 
     println!("The second total sum of today is {}", total_sum2);
-
 }
 
 // Day 1
@@ -78,8 +82,7 @@ fn get_total_points(content: String) -> i32 {
                     total += (1 + 3);
                 } else if my_decision == "Y" {
                     total += (2 + 6);
-                }
-                else if my_decision == "Z"{
+                } else if my_decision == "Z" {
                     total += (3);
                 }
             }
@@ -88,8 +91,7 @@ fn get_total_points(content: String) -> i32 {
                     total += (1);
                 } else if my_decision == "Y" {
                     total += (2 + 3);
-                }
-                else if my_decision == "Z"{
+                } else if my_decision == "Z" {
                     total += (3 + 6);
                 }
             }
@@ -98,8 +100,7 @@ fn get_total_points(content: String) -> i32 {
                     total += (1 + 6);
                 } else if my_decision == "Y" {
                     total += (2);
-                }
-                else if my_decision == "Z"{
+                } else if my_decision == "Z" {
                     total += (3 + 3);
                 }
             }
@@ -123,8 +124,7 @@ fn get_total_points2(content: String) -> i32 {
                     total += (3 + 0);
                 } else if my_decision == "Y" {
                     total += (1 + 3);
-                }
-                else if my_decision == "Z"{
+                } else if my_decision == "Z" {
                     total += (2 + 6);
                 }
             }
@@ -133,8 +133,7 @@ fn get_total_points2(content: String) -> i32 {
                     total += (1 + 0);
                 } else if my_decision == "Y" {
                     total += (2 + 3);
-                }
-                else if my_decision == "Z"{
+                } else if my_decision == "Z" {
                     total += (3 + 6);
                 }
             }
@@ -143,8 +142,7 @@ fn get_total_points2(content: String) -> i32 {
                     total += (2 + 0);
                 } else if my_decision == "Y" {
                     total += (3 + 3);
-                }
-                else if my_decision == "Z"{
+                } else if my_decision == "Z" {
                     total += (1 + 6);
                 }
             }
@@ -157,25 +155,28 @@ fn get_total_points2(content: String) -> i32 {
 
 // Day 3
 fn get_each_char(content: String) -> Vec<char> {
-    let chars = content.lines().into_iter().fold(vec![], |mut all_chars, line| {
-        let num_of_char = line.len() as u32;
-        let half_num_of_char = num_of_char.div(2);
-        'outer: for i in 0..half_num_of_char {
-            let first_each_char = line.clone().chars().nth(i as usize).unwrap();
-            for j in half_num_of_char..num_of_char  {
-                if line.chars().nth(j as usize).unwrap() == first_each_char {
-                    all_chars.push(first_each_char);
-                    break 'outer;
+    let chars = content
+        .lines()
+        .into_iter()
+        .fold(vec![], |mut all_chars, line| {
+            let num_of_char = line.len() as u32;
+            let half_num_of_char = num_of_char.div(2);
+            'outer: for i in 0..half_num_of_char {
+                let first_each_char = line.clone().chars().nth(i as usize).unwrap();
+                for j in half_num_of_char..num_of_char {
+                    if line.chars().nth(j as usize).unwrap() == first_each_char {
+                        all_chars.push(first_each_char);
+                        break 'outer;
+                    }
                 }
             }
-        }
-        all_chars
-    });
+            all_chars
+        });
     chars
-} 
+}
 
 fn get_total_sum(chars: Vec<char>) -> u32 {
-    let mut sum:u32 = 0;
+    let mut sum: u32 = 0;
     // let mut test = vec![];
     // test.push('p');
     // test.push('L');
@@ -197,27 +198,28 @@ fn get_total_sum(chars: Vec<char>) -> u32 {
 fn get_each_char2() -> Vec<char> {
     let file = File::open("quiz3_input.txt").unwrap();
     let reader = BufReader::new(&file);
-    let vec_all_lines:Vec<String> = reader.lines().collect::<Result<_, _>>().unwrap();
+    let vec_all_lines: Vec<String> = reader.lines().collect::<Result<_, _>>().unwrap();
 
-    let chars = vec_all_lines.chunks(3).into_iter().fold(vec![], |mut all_chars, chunk| {
-        let first = chunk[0].clone();
-        'outer: for i in first.chars() {
-            let second = chunk[1].clone();
-            for j in second.chars() {
-                if i == j {
-                    let third = chunk[2].clone();
-                    for z in third.chars() {
-                        if j == z {
-                            all_chars.push(z);
-                            break 'outer;
+    let chars = vec_all_lines
+        .chunks(3)
+        .into_iter()
+        .fold(vec![], |mut all_chars, chunk| {
+            let first = chunk[0].clone();
+            'outer: for i in first.chars() {
+                let second = chunk[1].clone();
+                for j in second.chars() {
+                    if i == j {
+                        let third = chunk[2].clone();
+                        for z in third.chars() {
+                            if j == z {
+                                all_chars.push(z);
+                                break 'outer;
+                            }
                         }
                     }
                 }
-            } 
-        }
-        all_chars
-    });
+            }
+            all_chars
+        });
     chars
-} 
-
-
+}
