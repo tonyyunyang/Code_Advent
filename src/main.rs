@@ -68,7 +68,7 @@ fn get_the_elf(content: String) -> (u64, u64, u64) {
 fn get_total_points(content: String) -> i32 {
     // let mut total: i32 = 0;
 
-    let mut sum = content.lines().into_iter().fold(0, |mut total, line| {
+    let sum = content.lines().into_iter().fold(0, |mut total, line| {
         let decision_string = line.split(" ").collect::<Vec<&str>>();
         let elf_decision = decision_string[0];
         let my_decision = decision_string[1];
