@@ -40,6 +40,19 @@ fn main() {
     let total_sum2 = get_total_sum(second_match.clone());
 
     println!("The second total sum of today is {}", total_sum2);
+
+    // Day 4
+    println!("Day 4 ----------------------------------------------------------");
+
+    let file = fs::read_to_string("quiz4_input.txt").expect("Error, file not here");
+    let fully_overlaps = camp_cleanup(file.clone());
+    
+    println!("The number of  fully overlaps group is {}", fully_overlaps);
+
+    let partly_overlaps = camp_cleanup2(file.clone());
+
+    println!("The number of partly overlaps group is {}", partly_overlaps);
+
 }
 
 // Day 1
@@ -222,4 +235,58 @@ fn get_each_char2() -> Vec<char> {
             all_chars
         });
     chars
+}
+
+// Day 4
+fn camp_cleanup(content: String) -> u32 {
+    let sum = content.lines().into_iter().fold(0, |mut total, line|{
+        let each_line = line.split(",").collect::<Vec<&str>>();
+        // for i in each_line {
+        //     println!("{}", i);
+        // }
+        let first_group = each_line[0].split("-").collect::<Vec<&str>>();
+        let first_range:Vec<u32> = first_group.into_iter().map(|a| a.trim().parse::<u32>().expect("Not a number")).collect();
+        // for i in first_range {
+        //     println!("{}", i);
+        // }
+        let second_group = each_line[1].split("-").collect::<Vec<&str>>();
+        let second_range:Vec<u32> = second_group.into_iter().map(|a| a.trim().parse::<u32>().expect("Not a number")).collect();
+
+        let mut flag = true;
+
+        if (first_range[0] <= second_range[0]) && (first_range[1] >= second_range[1]) {
+            total += 1;
+            flag = false;
+        }
+
+        if flag && (first_range[0] >= second_range[0]) && (first_range[1] <= second_range[1]) {
+            total += 1;
+        }
+
+        total
+    });
+    sum
+}
+
+fn camp_cleanup2(content: String) -> u32 {
+    let sum = content.lines().into_iter().fold(0, |mut total, line|{
+        let each_line = line.split(",").collect::<Vec<&str>>();
+        // for i in each_line {
+        //     println!("{}", i);
+        // }
+        let first_group = each_line[0].split("-").collect::<Vec<&str>>();
+        let first_range:Vec<u32> = first_group.into_iter().map(|a| a.trim().parse::<u32>().expect("Not a number")).collect();
+        // for i in first_range {
+        //     println!("{}", i);
+        // }
+        let second_group = each_line[1].split("-").collect::<Vec<&str>>();
+        let second_range:Vec<u32> = second_group.into_iter().map(|a| a.trim().parse::<u32>().expect("Not a number")).collect();
+
+        if (first_range[0] <= second_range[1]) && (first_range[1] >= second_range[0]) {
+            total += 1;
+        }
+
+        total
+    });
+    sum
 }
